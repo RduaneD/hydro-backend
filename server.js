@@ -10,7 +10,7 @@ await connectDB();
 
 const init = async () => {
   const server = Hapi.server({
-    port: process.env.PORT || 3000,
+    port: process.env.PORT,
     host: process.env.HOST || '0.0.0.0', // ⬅️ Agar bisa diakses publik (Railway)
     routes: {
       cors: {
