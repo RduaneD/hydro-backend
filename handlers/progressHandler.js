@@ -5,6 +5,15 @@ const getAllProgress = async (request, h) => {
   return h.response(progress);
 };
 
+const getProgressById = async (request, h) => {
+  const { id } = request.params;
+  const found = await Progress.findById(id);
+  if (!found) {
+    return h.response({ message: 'Progress not found' }).code(404);
+  }
+  return h.response(found);
+};
+
 const addProgress = async (request, h) => {
   const { image, title, description, date } = request.payload;
 
@@ -34,6 +43,7 @@ const updateProgress = async (request, h) => {
 
 export default {
   getAllProgress,
+  getProgressById, // ✅ penting agar bisa ambil berdasarkan ID
   addProgress,
   deleteProgress,
   updateProgress
