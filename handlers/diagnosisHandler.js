@@ -37,7 +37,7 @@ export const diagnosePlant = async (request, h) => {
   form.append('my_image', fs.createReadStream(filepath));
 
   try {
-    const flaskResponse = await fetch('https://web-production-a505.up.railway.app/api/diagnosis', {
+    const flaskResponse = await fetch('https://f3cf-34-83-210-54.ngrok-free.app/api/diagnosis', {
       method: 'POST',
       body: form,
     });
