@@ -12,6 +12,11 @@ const routes = [
     handler: progressHandler.addProgress
   },
   {
+  method: 'GET',
+  path: '/progress/{id}',
+  handler: progressHandler.getProgressById
+  },
+  {
     method: 'DELETE',
     path: '/progress/{id}',
     handler: progressHandler.deleteProgress
