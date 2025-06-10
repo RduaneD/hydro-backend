@@ -11,11 +11,10 @@ await connectDB();
 const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT,
-    host: process.env.HOST || '0.0.0.0', // Agar bisa diakses publik (Railway)
+    host: process.env.HOST || '0.0.0.0', // ⬅️ Agar bisa diakses publik (Railway)
     routes: {
       cors: {
         origin: [
-          'https://hydrosmart-frontend-jmtwh2wa0-nevlt-riduans-projects.vercel.app',
           'https://hydrosmart-frontend.vercel.app',
           'http://localhost:5173'
         ],
@@ -23,31 +22,6 @@ const init = async () => {
         credentials: true
       }
     }
-  });
-
-  // ✅ Global handler untuk preflight CORS (OPTIONS)
-  server.ext('onPreResponse', (request, h) => {
-    const response = request.response;
-
-    if (request.method === 'options') {
-      const headers = {
-        'Access-Control-Allow-Origin': 'https://hydrosmart-frontend.vercel.app',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Accept',
-        'Access-Control-Allow-Credentials': 'true'
-      };
-      return h.response('OK').code(200).headers(headers);
-    }
-
-    if (response.isBoom) {
-      response.output.headers['Access-Control-Allow-Origin'] = 'https://hydrosmart-frontend.vercel.app';
-      response.output.headers['Access-Control-Allow-Credentials'] = 'true';
-    } else if (response.header) {
-      response.header('Access-Control-Allow-Origin', 'https://hydrosmart-frontend.vercel.app');
-      response.header('Access-Control-Allow-Credentials', 'true');
-    }
-
-    return h.continue;
   });
 
   // Route dasar
